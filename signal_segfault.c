@@ -4,15 +4,30 @@
  */
 
 /**
- * Modified by:
+ * Modified by: Logan Smouter
  * 
- * Brief summary of modifications:
+ * Brief summary of modifications: Added a handler for SIGSEGV.
  */
 
 
 #include <stdio.h>
+#include <signal.h>
+
+/**
+ * @brief Reports a segmentation fault and returns.
+ */
+void handle_segfault(int signal_number) {
+    (void) signal_number;
+    printf("Received a segmentation fault\n");
+}
 
 int main (int argc, char* argv[]) {
+    (void) argc;
+    (void) argv;
+
+    // Register a handler for segmentation faults
+    signal(SIGSEGV, handle_segfault);
+
     // Declare a null pointer
     int* i = NULL;
 
